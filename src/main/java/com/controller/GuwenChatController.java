@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.annotation.IgnoreAuth;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.deepseek.impl.DeepSeek;
 import com.entity.GuwenChatEntity;
 import com.entity.GuwenEntity;
 import com.entity.YonghuEntity;
@@ -183,8 +184,6 @@ public class GuwenChatController {
             return R.ok();
     }
 
-
-
     /**
     * 删除
     */
@@ -196,7 +195,6 @@ public class GuwenChatController {
 
         return R.ok();
     }
-
 
     /**
      * 批量上传
@@ -256,9 +254,6 @@ public class GuwenChatController {
             return R.error(511,"批量插入数据异常，请联系管理员");
         }
     }
-
-
-
 
     /**
     * 前端列表
@@ -340,6 +335,19 @@ public class GuwenChatController {
         }else {
             return R.error(511,"表中有相同数据");
         }
+    }
+
+    /**
+     * AI客服
+     */
+
+    @Autowired
+    private DeepSeek ai;
+    @RequestMapping("/aiService")
+    public R aiService(@RequestBody GuwenChatEntity guwenChat, HttpServletRequest request1) throws Exception {
+
+        return R.ok();
+
     }
 
 }
