@@ -346,6 +346,7 @@ public class GuwenChatController {
                 guwenChat.setReplySourceTypes(1);
                 guwenChat.setZhuangtaiTypes(2);
                 guwenChatService.updateById(guwenChat);
+                logger.info("AI回复成功: {}", aiReply);
             } catch (Exception e) {
                 logger.error("AI调用失败", e);
             }
