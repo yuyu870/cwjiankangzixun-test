@@ -92,8 +92,13 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
                         }
                         sbf.append(ch);
                     }
-                    String s2 = dictionaryMap.get(sbf.toString()).get(i);
-                    value.set(obj, s2);
+                    Map<Integer, String> dictMap = dictionaryMap.get(sbf.toString());
+                    if (dictMap != null) {
+                        value.set(obj, "");
+                    } else {
+                        String s2 = dictMap.get(i);
+                        value.set(obj, s2);
+                    }
                 } else {
                     new Exception("字典表赋值出现问题::::"+value.getName());
                     value.set(obj, "");
