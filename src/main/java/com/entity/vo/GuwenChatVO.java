@@ -96,6 +96,14 @@ public class GuwenChatVO implements Serializable {
 
 
     /**
+     * 回复来源
+     */
+
+    @TableField(value = "reply_source_types")
+    private Integer replySourceTypes;
+
+
+    /**
      * 提问时间
      */
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
@@ -244,11 +252,24 @@ public class GuwenChatVO implements Serializable {
 
 
     /**
-	 * 获取：数据类型
+	 * 设置：数据类型
 	 */
 
     public void setGuwenChatTypes(Integer guwenChatTypes) {
         this.guwenChatTypes = guwenChatTypes;
+    }
+    /**
+	 * 获取：回复来源
+	 */
+    public Integer getReplySourceTypes() {
+        return replySourceTypes;
+    }
+    /**
+	 * 设置：回复来源
+	 */
+
+    public void setReplySourceTypes(Integer replySourceTypes) {
+        this.replySourceTypes = replySourceTypes;
     }
     /**
 	 * 设置：提问时间

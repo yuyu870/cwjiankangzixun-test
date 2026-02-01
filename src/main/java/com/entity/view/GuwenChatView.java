@@ -32,6 +32,11 @@ public class GuwenChatView extends GuwenChatEntity implements Serializable {
 	*/
 	@ColumnInfo(comment="数据类型的字典表值",type="varchar(200)")
 	private String guwenChatValue;
+	/**
+	* 回复来源的值
+	*/
+	@ColumnInfo(comment="回复来源的字典表值",type="varchar(200)")
+	private String replySourceValue;
 
 	//级联表 顾问
 		/**
@@ -158,6 +163,19 @@ public class GuwenChatView extends GuwenChatEntity implements Serializable {
 	*/
 	public void setGuwenChatValue(String guwenChatValue) {
 		this.guwenChatValue = guwenChatValue;
+	}
+	//当前表的
+	/**
+	* 获取： 回复来源的值
+	*/
+	public String getReplySourceValue() {
+		return replySourceValue;
+	}
+	/**
+	* 设置： 回复来源的值
+	*/
+	public void setReplySourceValue(String replySourceValue) {
+		this.replySourceValue = replySourceValue;
 	}
 
 
