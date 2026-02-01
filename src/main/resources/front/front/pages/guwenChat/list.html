@@ -51,18 +51,19 @@
             border-radius: 10px;
         }
         .user-message {
-            background-color: #e6f7ff;
-            border-bottom-left-radius: 0;
+            background-color: #95ec69;
+            border-bottom-right-radius: 0;
+            margin-left: auto;
         }
         .ai-message {
             background-color: #f0f9ff;
-            border-bottom-right-radius: 0;
-            margin-left: auto;
+            border-bottom-left-radius: 0;
+            margin-right: auto;
         }
         .guwen-message {
             background-color: #fff7e6;
-            border-bottom-right-radius: 0;
-            margin-left: auto;
+            border-bottom-left-radius: 0;
+            margin-right: auto;
         }
         .message-content {
             font-size: 14px;
@@ -89,13 +90,13 @@
     <el-form class="detail-form-content chat-form" ref="ruleForm" label-width="0">
         <div class="chat-content">
             <div v-bind:key="item.id" v-for="item in dataList">
-                <div v-if="item.guwenChatIssueText" class="left-content">
+                <div v-if="item.guwenChatIssueText" class="right-content">
                     <div class="message-bubble user-message">
                         <div class="message-content">{{ item.guwenChatIssueText }}</div>
                         <div class="message-time">{{ item.issueTime }}</div>
                     </div>
                 </div>
-                <div v-if="item.guwenChatReplyText" class="right-content">
+                <div v-if="item.guwenChatReplyText" class="left-content">
                     <div class="message-bubble" :class="item.replySourceTypes === 1 ? 'ai-message' : 'guwen-message'">
                         <div class="message-source">{{ item.replySourceTypes === 1 ? 'AI客服' : '顾问回复' }}</div>
                         <div class="message-content">{{ item.guwenChatReplyText }}</div>
