@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class DeepSeek implements IDeepSeek {
 
-    private final String apiHost="https://api.deepseek.ai/v1/chat/completions";
-    private final String apiKeySecret="sk-xxxxxxxxxxxxxxxxxxxxx";
+    private final String apiHost="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+    private final String apiKeySecret="sk-5e217a3788c44d259537cd3143db5817";
 
     @Override
     public String completions(String userQuestion) throws Exception {
