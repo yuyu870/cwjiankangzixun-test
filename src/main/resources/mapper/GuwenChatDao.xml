@@ -13,6 +13,7 @@
         ,a.reply_time as replyTime
         ,a.zhuangtai_types as zhuangtaiTypes
         ,a.guwen_chat_types as guwenChatTypes
+        ,a.reply_source_types as replySourceTypes
         ,a.insert_time as insertTime
         ,a.create_time as createTime
     </sql>
