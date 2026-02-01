@@ -344,7 +344,8 @@ public class GuwenChatController {
                 guwenChat.setGuwenChatReplyText(aiReply);
                 guwenChat.setReplyTime(new Date());
                 guwenChat.setReplySourceTypes(1);
-                guwenChat.setZhuangtaiTypes(2);
+                // 保持消息状态为未回复，让顾问能看到并回复
+                // guwenChat.setZhuangtaiTypes(2);
                 guwenChatService.updateById(guwenChat);
                 logger.info("AI回复成功: {}", aiReply);
             } catch (Exception e) {
