@@ -363,6 +363,7 @@ public class GuwenChatView extends GuwenChatEntity implements Serializable {
 		return "GuwenChatView{" +
 			", zhuangtaiValue=" + zhuangtaiValue +
 			", guwenChatValue=" + guwenChatValue +
+			", replySourceValue=" + replySourceValue +
 			", yonghuName=" + yonghuName +
 			", yonghuPhone=" + yonghuPhone +
 			", yonghuIdNumber=" + yonghuIdNumber +

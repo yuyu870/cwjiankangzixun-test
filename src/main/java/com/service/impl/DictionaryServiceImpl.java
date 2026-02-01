@@ -63,6 +63,11 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
             ServletContext servletContext = request.getServletContext();
             Map<String, Map<Integer, String>> dictionaryMap= (Map<String, Map<Integer, String>>) servletContext.getAttribute("dictionaryMap");
 
+            //检查dictionaryMap是否为null
+            if (dictionaryMap == null) {
+                return;
+            }
+
             //通过Types的值给Value字段赋值
             for (String s : fieldNameList) {
                 Field types = null;
@@ -94,10 +99,10 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryDao, Dictionary
                     }
                     Map<Integer, String> dictMap = dictionaryMap.get(sbf.toString());
                     if (dictMap != null) {
-                        value.set(obj, "");
-                    } else {
                         String s2 = dictMap.get(i);
                         value.set(obj, s2);
+                    } else {
+                        value.set(obj, "");
                     }
                 } else {
                     new Exception("字典表赋值出现问题::::"+value.getName());
