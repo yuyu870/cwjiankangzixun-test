@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.annotation.IgnoreAuth;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.deepseek.impl.DeepSeek;
+import com.deepseek.IDeepSeek;
 import com.entity.GuwenChatEntity;
 import com.entity.GuwenEntity;
 import com.entity.YonghuEntity;
@@ -68,7 +68,7 @@ public class GuwenChatController {
     @Autowired
     private UsersService usersService;//管理员
     @Autowired
-    private DeepSeek ai;
+    private IDeepSeek ai;
 
     /**
     * 后端列表

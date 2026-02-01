@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.deepseek.IDeepSeek;
 import com.deepseek.dto.ChatCompletionRequestDTO;
 import com.deepseek.dto.ChatCompletionResponseDTO;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DeepSeek implements IDeepSeek {
 
     private final String apiHost="https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
