@@ -67,7 +67,8 @@ public class GuwenChatController {
     private YonghuService yonghuService;//用户
     @Autowired
     private UsersService usersService;//管理员
-
+    @Autowired
+    private DeepSeek ai;
 
     /**
     * 后端列表
@@ -180,8 +181,15 @@ public class GuwenChatController {
 //            guwenChat.setYonghuId(Integer.valueOf(String.valueOf(request.getSession().getAttribute("userId"))));
 //        else if("顾问".equals(role))
 //            guwenChat.setGuwenId(Integer.valueOf(String.valueOf(request.getSession().getAttribute("userId"))));
-            guwenChatService.updateById(guwenChat);//根据id更新
-            return R.ok();
+        
+        if("顾问".equals(role) && guwenChat.getGuwenChatReplyText() != null && !guwenChat.getGuwenChatReplyText().isEmpty()) {
+            guwenChat.setReplySourceTypes(2);
+            guwenChat.setReplyTime(new Date());
+            guwenChat.setZhuangtaiTypes(2);
+        }
+        
+        guwenChatService.updateById(guwenChat);//根据id更新
+        return R.ok();
     }
 
     /**
@@ -329,25 +337,23 @@ public class GuwenChatController {
         if(guwenChatEntity==null){
             guwenChat.setInsertTime(new Date());
             guwenChat.setCreateTime(new Date());
-        guwenChatService.insert(guwenChat);
+            guwenChatService.insert(guwenChat);
 
-            return R.ok();
+            try {
+                String aiReply = ai.completions(guwenChat.getGuwenChatIssueText());
+                guwenChat.setGuwenChatReplyText(aiReply);
+                guwenChat.setReplyTime(new Date());
+                guwenChat.setReplySourceTypes(1);
+                guwenChat.setZhuangtaiTypes(2);
+                guwenChatService.updateById(guwenChat);
+            } catch (Exception e) {
+                logger.error("AI调用失败", e);
+            }
+
+            return R.ok().put("data", guwenChat);
         }else {
             return R.error(511,"表中有相同数据");
         }
-    }
-
-    /**
-     * AI客服
-     */
-
-    @Autowired
-    private DeepSeek ai;
-    @RequestMapping("/aiService")
-    public R aiService(@RequestBody GuwenChatEntity guwenChat, HttpServletRequest request1) throws Exception {
-
-        return R.ok();
-
     }
 
 }

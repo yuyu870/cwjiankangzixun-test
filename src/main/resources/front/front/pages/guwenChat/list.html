@@ -44,6 +44,44 @@
             padding: 10px 12px;
             box-sizing: border-box;
         }
+        .message-bubble {
+            max-width: 70%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user-message {
+            background-color: #e6f7ff;
+            border-bottom-left-radius: 0;
+        }
+        .ai-message {
+            background-color: #f0f9ff;
+            border-bottom-right-radius: 0;
+            margin-left: auto;
+        }
+        .guwen-message {
+            background-color: #fff7e6;
+            border-bottom-right-radius: 0;
+            margin-left: auto;
+        }
+        .message-content {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .message-time {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+        }
+        .message-source {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body style="overflow-y: hidden;overflow-x: hidden;">
@@ -52,14 +90,17 @@
         <div class="chat-content">
             <div v-bind:key="item.id" v-for="item in dataList">
                 <div v-if="item.guwenChatIssueText" class="left-content">
-                    <el-alert class="text-content" :title="item.guwenChatIssueText" :closable="false" type="success">
-                    </el-alert>
-                    <el-alert class="text-content" :title="item.issueTime" :closable="false" type="success"></el-alert>
+                    <div class="message-bubble user-message">
+                        <div class="message-content">{{ item.guwenChatIssueText }}</div>
+                        <div class="message-time">{{ item.issueTime }}</div>
+                    </div>
                 </div>
-                <div v-else class="right-content">
-                    <el-alert class="text-content" :title="item.guwenChatReplyText" :closable="false" type="warning">
-                    </el-alert>
-                    <el-alert class="text-content" :title="item.replyTime" :closable="false" type="warning"></el-alert>
+                <div v-if="item.guwenChatReplyText" class="right-content">
+                    <div class="message-bubble" :class="item.replySourceTypes === 1 ? 'ai-message' : 'guwen-message'">
+                        <div class="message-source">{{ item.replySourceTypes === 1 ? 'AI客服' : '顾问回复' }}</div>
+                        <div class="message-content">{{ item.guwenChatReplyText }}</div>
+                        <div class="message-time">{{ item.replyTime }}</div>
+                    </div>
                 </div>
                 <div class="clear-float"></div>
             </div>
@@ -131,6 +172,9 @@
                     });
                     return
                 }
+
+                layer.load(2);
+
                 layui.http.requestJson('guwenChat/add', 'post', {
                     yonghuId: localStorage.getItem('userid'),//询问人
                     guwenChatIssueText: _this.ruleForm.guwenChatIssueText,
@@ -139,10 +183,28 @@
                     guwenId: layui.http.getParam('guwenId'),//被询问人
                     issueTime: getCurDateTime(),
                 }, (res) => {
-                    _this.getList();
+                    layer.closeAll('loading');
+                    if(res.code === 0) {
+                        _this.ruleForm.guwenChatIssueText="";
+                        _this.ruleForm.guwenChatIssuePhoto=null;
+                        _this.getList();
+                        layer.msg('AI已回复您的咨询', {
+                            time: 2000,
+                            icon: 6
+                        });
+                    } else {
+                        layer.msg(res.msg, {
+                            time: 3000,
+                            icon: 5
+                        });
+                    }
+                }, (error) => {
+                    layer.closeAll('loading');
+                    layer.msg('网络错误，请稍后重试', {
+                        time: 3000,
+                        icon: 5
+                    });
                 });
-                _this.ruleForm.guwenChatIssueText="";//回复内容置空
-                _this.ruleForm.guwenChatIssuePhoto=null;//附件图片置空
             }
         }
     })

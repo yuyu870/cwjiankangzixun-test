@@ -130,6 +130,15 @@ public class GuwenChatEntity<T> implements Serializable {
 
 
     /**
+     * 回复来源
+     */
+    @ColumnInfo(comment="回复来源",type="int(11)")
+    @TableField(value = "reply_source_types")
+
+    private Integer replySourceTypes;
+
+
+    /**
      * 提问时间
      */
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
@@ -269,6 +278,19 @@ public class GuwenChatEntity<T> implements Serializable {
         this.guwenChatTypes = guwenChatTypes;
     }
     /**
+	 * 获取：回复来源
+	 */
+    public Integer getReplySourceTypes() {
+        return replySourceTypes;
+    }
+    /**
+	 * 设置：回复来源
+	 */
+
+    public void setReplySourceTypes(Integer replySourceTypes) {
+        this.replySourceTypes = replySourceTypes;
+    }
+    /**
 	 * 获取：提问时间
 	 */
     public Date getInsertTime() {
@@ -307,6 +329,7 @@ public class GuwenChatEntity<T> implements Serializable {
             ", replyTime=" + DateUtil.convertString(replyTime,"yyyy-MM-dd") +
             ", zhuangtaiTypes=" + zhuangtaiTypes +
             ", guwenChatTypes=" + guwenChatTypes +
+            ", replySourceTypes=" + replySourceTypes +
             ", insertTime=" + DateUtil.convertString(insertTime,"yyyy-MM-dd") +
             ", createTime=" + DateUtil.convertString(createTime,"yyyy-MM-dd") +
         "}";
